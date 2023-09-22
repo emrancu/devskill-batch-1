@@ -66,8 +66,4 @@ $finalResult['students_with_favourite_subject']  = array_filters($students, func
     }
 });
 
-$data =  json_encode($finalResult);
-
-$data =  json_decode($data, true);
-
-echo $data['favorite_subject'];
+echo json_encode($finalResult);
