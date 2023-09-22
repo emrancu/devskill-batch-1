@@ -18,7 +18,6 @@ $students = [
     ],
 ];
 
-
 function mostFavoriteSubject(array $students): string
 {
      $subjects = [];
@@ -35,7 +34,6 @@ function mostFavoriteSubject(array $students): string
             }
 
           }
-
      }
 
    $subjects = array_flip($subjects);
@@ -48,10 +46,28 @@ $finalResult = [];
 $finalResult['favorite_subject']  = mostFavoriteSubject($students);
 
 
-$finalResult['students_with_favourite_subject']  = array_filter($students, function ($student) use($finalResult){
+function array_filters(array $array, callable $function): array
+{
+  $data = [];
+
+  foreach ($array as $student){
+      if($function($student)){
+          $data[] =  $student;
+      }
+  }
+
+  return $data;
+}
+
+
+$finalResult['students_with_favourite_subject']  = array_filters($students, function ($student) use($finalResult){
     if(in_array($finalResult['favorite_subject'], $student['subjects'])){
       return true;
     }
 });
 
-echo json_encode($finalResult);
+$data =  json_encode($finalResult);
+
+$data =  json_decode($data, true);
+
+echo $data['favorite_subject'];
