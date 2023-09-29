@@ -1,6 +1,23 @@
 <?php
 
-class Student {
+
+class Parents {
+
+    protected string $fatherName;
+
+     public function setFatherName(string $name): void
+     {
+         $this->fatherName = $name;
+     }
+
+    protected function getFatherName(): string
+    {
+       return $this->fatherName ;
+    }
+}
+
+
+class Student extends Parents {
 
     public function __construct(
         public readonly string $name,
@@ -9,7 +26,11 @@ class Student {
     ) {
     }
 
-    public function updateAge($age): int
+    public function father(): string
+    {
+        return $this->getFatherName();
+    }
+    protected function updateAge($age): int
     {
        $this->age += $age;
 
@@ -21,5 +42,6 @@ class Student {
 
 $student = new Student('Hasan', 23, ['English']);
 
+$student->setFatherName("Hasan");
 
-echo $student->updateAge(2);
+echo $student->father();
