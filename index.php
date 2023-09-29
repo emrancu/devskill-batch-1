@@ -1,47 +1,57 @@
 <?php
 
 
-class Parents {
+abstract class LogContract {
+    protected string $message;
 
-    protected string $fatherName;
+    abstract function setLog($message):void;
+    abstract function getLog():string;
+}
 
-     public function setFatherName(string $name): void
-     {
-         $this->fatherName = $name;
-     }
 
-    protected function getFatherName(): string
+class FileLog extends LogContract {
+
+    function setLog($message): void
     {
-       return $this->fatherName ;
+        // write message to file
+       $this->message = $message;
+    }
+
+    function getLog(): string
+    {
+        // get file log from file
+        return $this->message;
+    }
+}
+
+class RedisLog extends LogContract {
+
+    function setLog($message): void
+    {
+        // write to redis
+        $this->message = $message;
+    }
+
+    function getLog(): string
+    {
+        // get log from redis
+        return $this->message;
     }
 }
 
 
-class Student extends Parents {
-
-    public function __construct(
-        public readonly string $name,
-        private  int $age,
-        public readonly array $subjects
-    ) {
-    }
-
-    public function father(): string
-    {
-        return $this->getFatherName();
-    }
-    protected function updateAge($age): int
-    {
-       $this->age += $age;
-
-       return $this->age;
-    }
-
+function printLog(LogContract $logContract): void
+{
+   echo  $logContract->getLog();
 }
 
+function setLog(LogContract $logContract, $message): void
+{
+   $logContract->setLog($message);
+}
 
-$student = new Student('Hasan', 23, ['English']);
+$log =  new RedisLog();
 
-$student->setFatherName("Hasan");
+setLog($log, "Redis Log");
+printLog($log);
 
-echo $student->father();
