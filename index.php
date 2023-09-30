@@ -1,10 +1,10 @@
 <?php
 
-
 abstract class LogContract {
     protected string $message;
 
     abstract function setLog($message):void;
+
     abstract function getLog():string;
 }
 
