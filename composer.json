@@ -1,0 +1,20 @@
+{
+    "name": "alemran/devskill",
+    "type": "project",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "AL EMRAN",
+            "email": "emrancu1@gmail.com"
+        }
+    ],
+    "require": {
+
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "app/",
+            "DevSkill\\": "system/"
+        }
+    }
+}
