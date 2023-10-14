@@ -15,6 +15,9 @@
         "psr-4": {
             "App\\": "app/",
             "DevSkill\\": "system/"
-        }
+        },
+        "files": [
+            "app/Support/globalFunction.php"
+        ]
     }
 }

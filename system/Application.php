@@ -3,15 +3,28 @@
 namespace DevSkill;
 
 use DevSkill\Abstraction\ProviderInterface;
-use DevSkill\Provider\RouteServiceProvider;
+use DevSkill\Providers\RouteServiceProvider;
 use Exception;
 
 class Application
 {
+    public static Application|null $instance = null;
+
+
+    public static function instance(string $path = null): Application
+    {
+        if(!static::$instance){
+            static::$instance = new self($path);
+        }
+
+        return  static::$instance;
+    }
+
 
     protected array $providers = [
         RouteServiceProvider::class
     ];
+
     private string $rootPath;
 
     public function __construct($root)
@@ -20,9 +33,14 @@ class Application
     }
 
 
-    public function boot(): void
+    public function start(): void
     {
         try {
+
+            $appConfig = loadConfig('app.php');
+
+            $this->providers = array_merge($this->providers, $appConfig['providers']);
+
             foreach ($this->providers as $provider) {
 
                 $providerObject = new $provider();

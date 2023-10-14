@@ -1,6 +1,6 @@
 <?php
 
-namespace DevSkill\Provider;
+namespace DevSkill\Providers;
 
 use DevSkill\Abstraction\ProviderInterface;
 
