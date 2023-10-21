@@ -10,7 +10,6 @@ class Application
 {
     public static Application|null $instance = null;
 
-
     public static function instance(string $path = null): Application
     {
         if(!static::$instance){
@@ -37,9 +36,7 @@ class Application
     {
         try {
 
-            $appConfig = loadConfig('app.php');
-
-            $this->providers = array_merge($this->providers, $appConfig['providers']);
+           $this->providers = array_merge($this->providers, config('app.providers', []));
 
             foreach ($this->providers as $provider) {
 
