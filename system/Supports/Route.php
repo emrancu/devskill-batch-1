@@ -8,25 +8,11 @@ namespace DevSkill\Supports;
  */
 class Route
 {
+    public static array $routes = [];
 
-//    public function __call(string $name, array $arguments)
-//    {
-//      $callback = $arguments[1];
-//      $controller = new $callback[0]();
-//
-//     $controller->{$callback[1]}();
-//
-//    }
-
-
-    public static function __callStatic(string $name, array $arguments): void
+    public static function __callStatic(string $name, array $arguments)
     {
-      $callback = $arguments[1];
-      $controller = new $callback[0]();
-
-     $controller->{$callback[1]}();
-
+        self::$routes[$arguments[0]] =  $arguments[1];
     }
-
 
 }

@@ -4,6 +4,7 @@ namespace DevSkill;
 
 use DevSkill\Abstraction\ProviderInterface;
 use DevSkill\Providers\RouteServiceProvider;
+use DevSkill\Supports\Route;
 use Exception;
 
 class Application
@@ -53,8 +54,34 @@ class Application
         } catch (Exception $exception) {
             echo $exception->getMessage();
         }
+
+
+        $this->initRoute();
     }
 
+    private function initRoute()
+    {
+        try {
+
+        $path = strtok($_SERVER["REQUEST_URI"], '?');
+      
+
+        $routes = Route::$routes;
+
+        $callback = $routes[$path] ?? [];
+ 
+        if(empty($callback)){
+            throw new Exception("Route not found");
+        }
+ 
+        $controller = new $callback[0]();
+
+        $controller->{$callback[1]}();
+
+        } catch (\Exception $exception){
+            echo $exception->getMessage();
+        }
+    }
 
     public function rootPath(): string
     {
