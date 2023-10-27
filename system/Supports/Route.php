@@ -15,8 +15,5 @@ class Route
     {
         self::$routes[$arguments[0]][$name] =  $arguments[1];
     }
-
-
-
-
+    
 }

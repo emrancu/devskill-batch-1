@@ -7,18 +7,27 @@ class Request
     private array $data = [];
 
     public function __construct() {
-      //  $_GET
+      $this->setGetData();
+      $this->setPostData();
+    }
 
-     //   $_POST
+    private function setGetData(): void
+    {
+        foreach ($_GET ?? [] as $key => $value){
+            $this->data[$key] =  $value;
+        }
+    }
 
-     //   $this->data[$name] = $value
-
-     //  foreach ($_POST as $name => $value){}
+    private function setPostData(): void
+    {
+        foreach ($_POST ?? [] as $key => $value){
+            $this->data[$key] =  $value;
+        }
     }
 
     public function all(): array
     {
-
+        return $this->data;
     }
 
     public function __get(string $name)
