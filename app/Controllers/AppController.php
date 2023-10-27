@@ -10,7 +10,7 @@ class AppController
     public function index()
     {
         $request = new Request();
-       echo  $request->email ;
+        echo  $request->email ;
 
         echo "Wow !! Our route system work";
     }

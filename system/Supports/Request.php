@@ -13,7 +13,7 @@ class Request
 
      //   $this->data[$name] = $value
 
-      //  foreach ($_POST as $name => $value){}
+     //  foreach ($_POST as $name => $value){}
     }
 
     public function all(): array

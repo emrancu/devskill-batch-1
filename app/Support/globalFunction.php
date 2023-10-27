@@ -35,7 +35,6 @@ function config($key, $default = null)
             $path .= '/'.$key;
         }
 
-
         if(!$value && is_file(path('config'.$path.'.php'))){
             $value = loadConfig($path.'.php');
         }

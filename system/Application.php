@@ -64,16 +64,20 @@ class Application
         try {
 
         $path = strtok($_SERVER["REQUEST_URI"], '?');
-      
+        $requestMethod = strtolower($_SERVER['REQUEST_METHOD']);
 
         $routes = Route::$routes;
 
-        $callback = $routes[$path] ?? [];
- 
-        if(empty($callback)){
+        if(empty($routes[$path])){
             throw new Exception("Route not found");
         }
- 
+
+        if(! ($routes[$path][$requestMethod] ?? false)){
+            throw new Exception("Method not found");
+        }
+
+        $callback = $routes[$path][$requestMethod] ?? [];
+
         $controller = new $callback[0]();
 
         $controller->{$callback[1]}();
