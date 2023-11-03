@@ -9,10 +9,10 @@ class AppController
 {
     public function index()
     {
-        $request = new Request();
-        echo  $request->email ;
-
-        echo "Wow !! Our route system work";
+        $email = request()->input('email');
+        return view('welcome', [
+            'email' => $email
+        ]);
     }
 
 

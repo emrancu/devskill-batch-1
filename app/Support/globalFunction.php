@@ -2,12 +2,18 @@
 
 
 use DevSkill\Application;
+use DevSkill\Supports\Request;
 
 function app(): Application
 {
    return Application::instance();
 }
 
+
+function request(): Request
+{
+   return Request::instance();
+}
 
 function loadConfig($path)
 {
@@ -42,4 +48,12 @@ function config($key, $default = null)
 
     return $value ?? $default;
 }
+
+function view($path, $data = [])
+{
+    extract($data);
+
+    return include path('resources/views/'.$path.'.php');
+}
+
 

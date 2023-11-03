@@ -2,6 +2,7 @@
 
 namespace DevSkill;
 
+use DevSkill\Abstraction\MiddlewareContract;
 use DevSkill\Abstraction\ProviderInterface;
 use DevSkill\Providers\RouteServiceProvider;
 use DevSkill\Supports\Route;
@@ -76,7 +77,44 @@ class Application
             throw new Exception("Method not found");
         }
 
-        $callback = $routes[$path][$requestMethod] ?? [];
+        /**
+         * start handling with middleware
+         */
+
+        $middleware = $routes[$path][$requestMethod]['middleware'] ?? [];
+
+        if($middleware){
+
+            $routeMiddlewares = is_array($middleware) ? $middleware : (array)$middleware;
+
+            $middlewares =  config('app.middlewares');
+
+            foreach($routeMiddlewares as $routeMiddleware){
+
+                $routeMiddleware =  $middlewares[$routeMiddleware] ?? null;
+                if($routeMiddleware){
+
+                    $instance = new $routeMiddleware();
+
+                    if($instance instanceof  MiddlewareContract){
+                        $instance->handle();
+                    }else{
+                        echo "Must extent `".MiddlewareContract::class.'` in middleware `'.$routeMiddleware.'`';
+                    }
+
+                }
+
+            }
+
+
+        }
+
+        /**
+         * ending middleware handling
+         */
+
+
+        $callback = $routes[$path][$requestMethod]['callback'] ?? [];
 
         $controller = new $callback[0]();
 

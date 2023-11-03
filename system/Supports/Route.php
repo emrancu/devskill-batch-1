@@ -4,8 +4,8 @@
 namespace DevSkill\Supports;
 
 /**
- * @method static void get($path, $callback) Description of the method.
- * @method static void post($path, $callback) Description of the method.
+ * @method static Route get($path, $callback, $middleware) Description of the method.
+ * @method static Route post($path, $callback) Description of the method.
  */
 class Route
 {
@@ -13,7 +13,13 @@ class Route
 
     public static function __callStatic(string $name, array $arguments)
     {
-        self::$routes[$arguments[0]][$name] =  $arguments[1];
+        $middleware = $arguments[2] ?? null;
+
+        self::$routes[$arguments[0]][$name] =  [
+            'middleware' => $middleware,
+            'callback' => $arguments[1]
+        ];
+
     }
     
 }
