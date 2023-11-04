@@ -9,7 +9,8 @@
         }
     ],
     "require": {
-
+        "plugin-master/container": "^1.0",
+      "ext-pdo": "*"
     },
     "autoload": {
         "psr-4": {

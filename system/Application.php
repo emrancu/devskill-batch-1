@@ -7,8 +7,9 @@ use DevSkill\Abstraction\ProviderInterface;
 use DevSkill\Providers\RouteServiceProvider;
 use DevSkill\Supports\Route;
 use Exception;
+use PluginMaster\Container\Container;
 
-class Application
+class Application extends Container
 {
     public static Application|null $instance = null;
 

@@ -4,7 +4,7 @@
 namespace DevSkill\Supports;
 
 /**
- * @method static Route get($path, $callback, $middleware) Description of the method.
+ * @method static Route get($path, $callback, $middleware = null) Description of the method.
  * @method static Route post($path, $callback) Description of the method.
  */
 class Route

@@ -5,7 +5,7 @@ use DevSkill\Supports\Route;
 
 
 
-Route::get('/', [AppController::class, 'index'], ['test', 'dev']);
+Route::get('/', [AppController::class, 'index']);
 
 
 Route::post('/devskill', [AppController::class, 'devskill']);
